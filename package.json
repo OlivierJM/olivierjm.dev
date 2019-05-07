@@ -6,8 +6,10 @@
     "pnp": true
   },
   "dependencies": {
+    "@sumup/circuit-ui": "^0.0.27-canary",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-markdown": "^4.0.8",
     "react-scripts": "3.0.0"
   },
   "scripts": {
