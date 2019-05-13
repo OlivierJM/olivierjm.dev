@@ -1,18 +1,23 @@
 import React from "react";
+import * as data from "../blogs.json";
 
 function Articles() {
+  const blogs = data.default;
   return (
-    <div
-      className="uk-child-width-1-2@s uk-child-width-1-3@m"
-      uk-grid="masonry: true"
-    >
-      <div>
-        <div
-          className="uk-card uk-card-default uk-flex uk-flex-center uk-flex-middle"
-          style={{ height: 100 }}
-        >
-          Item
-        </div>
+    <div>
+      {/* <h4 className="uk-heading-medium" /> */}
+      <h1 class="uk-heading-line uk-text-center">
+        <span>Here are different blogs I have written in recent years</span>
+      </h1>
+      <div uk-grid="true">
+        {blogs.map(blog => (
+          <div key={blog.id} className="uk-width-1-1">
+            <div className="uk-card uk-card-default uk-card-body">
+              <h3 className="uk-card-title">{blog.title}</h3>
+              <p>{blog.description}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
