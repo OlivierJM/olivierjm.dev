@@ -1,5 +1,6 @@
 // This will be an example of an article
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Cards() {
   return (
@@ -14,6 +15,12 @@ function Cards() {
                 I enjoy writing and sharing what I do with others, read some of
                 the articles I have written
               </p>
+
+              <Link to="/articles">
+                <button className="uk-button uk-button-default">
+                  Check them out
+                </button>
+              </Link>
             </div>
           </div>
           <div>
