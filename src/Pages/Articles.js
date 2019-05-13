@@ -9,7 +9,7 @@ function Articles() {
       <div>
         <div
           class="uk-card uk-card-default uk-flex uk-flex-center uk-flex-middle"
-          style="height: 100px"
+          style={{ height: 100 }}
         >
           Item
         </div>
