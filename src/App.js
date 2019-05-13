@@ -1,12 +1,14 @@
 import React from "react";
-import Header from "./components/Header";
+// import Header from "./components/Header";
 import Parallax from "./components/Parralax";
+import Cards from "./components/Cards";
 
 function App() {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Parallax />
+      <Cards />
     </>
   );
 }
