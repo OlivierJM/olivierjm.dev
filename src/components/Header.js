@@ -12,14 +12,14 @@ function Header() {
           >
             <div className="uk-navbar-left">
               <ul className="uk-navbar-nav">
-                <li className="uk-active">
-                  <a href="#">Active</a>
+                <li>
+                  <a href="/">Home</a>
                 </li>
                 <li>
-                  <a href="#">Projects</a>
+                  <a href="/projects">Projects</a>
                 </li>
                 <li>
-                  <a href="#">Articles</a>
+                  <a href="/articles">Articles</a>
                 </li>
               </ul>
             </div>

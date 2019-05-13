@@ -6,9 +6,6 @@ function Articles() {
   const blogs = data.default;
   return (
     <div>
-      {/* <div>
-      </div> */}
-
       <Header />
       <div className="uk-container">
         <div>

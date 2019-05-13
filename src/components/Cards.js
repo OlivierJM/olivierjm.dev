@@ -18,7 +18,7 @@ function Cards() {
 
               <Link to="/articles">
                 <button className="uk-button uk-button-default">
-                  Check them out
+                  Read more
                 </button>
               </Link>
             </div>
@@ -27,6 +27,12 @@ function Cards() {
             <div className="uk-card uk-card-default uk-card-hover uk-card-body">
               <h3 className="uk-card-title">Projects</h3>
               <p>Check out some of the projects I have worked on</p>
+
+              <Link to="/projects">
+                <button className="uk-button uk-button-default">
+                  Read more
+                </button>
+              </Link>
             </div>
           </div>
         </div>
