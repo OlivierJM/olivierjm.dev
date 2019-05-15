@@ -8,6 +8,7 @@ import Header from "./components/Header";
 
 // pages
 import Articles from "./Pages/Articles";
+import Notfound from "./Pages/Notfound";
 // import Head
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/articles" component={Articles} />
+        <Route path="*" component={Notfound} />
       </Switch>
     </BrowserRouter>
   );
