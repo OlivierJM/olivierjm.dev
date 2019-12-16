@@ -30,22 +30,35 @@ export default function Home() {
             </p>
           </div>
           <div className="cell medium-9 medium-cell-block-y">
-            <h2>Independent scrolling body</h2>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-              lacus odio, accumsan id ullamcorper eget, varius nec erat. Nulla
-              facilisi. Donec dui felis, euismod nec finibus vitae, dapibus quis
-              arcu. Maecenas tempor et ipsum quis venenatis. Ut posuere sed
-              augue sit amet efficitur. Sed imperdiet, justo id tempus rhoncus,
-              est est viverra turpis, non vulputate magna lectus et nisl.
-              Pellentesque ultrices porttitor vehicula. Ut aliquet efficitur
-              ligula, a consectetur felis. Proin tristique ut augue nec luctus.
-              Curabitur a sapien pretium, auctor elit a, efficitur erat. Donec
-              tincidunt dui vel velit bibendum euismod. Cras vitae nibh dui.
-              Aliquam erat volutpat. Etiam sit amet arcu a erat efficitur
-              facilisis. Ut viverra dapibus turpis, et ornare justo. Integer in
-              dui cursus, dignissim tortor a, hendrerit risus.
-            </p>
+            <h4
+              className="text-center"
+              style={{
+                marginTop: 20,
+                marginBottom: 20
+              }}
+            >
+              Projects I have worked on
+            </h4>
+            <div class="grid-container">
+              <div class="grid-x grid-margin-x small-up-2 medium-up-3">
+                <div className="cell">
+                  <div className="card">
+                    <div className="card-section">
+                      <h4>SparkEd</h4>
+                      <p>Education platform</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="cell">
+                  <div className="card">
+                    <div className="card-section">
+                      <h4>Sparked v3</h4>
+                      <p>an enhanced version of Sparked V2</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
