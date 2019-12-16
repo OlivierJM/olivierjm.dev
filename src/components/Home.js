@@ -8,7 +8,7 @@ export default function Home() {
           <div className="cell medium-3 medium-cell-block-y">
             <img
               src="https://avatars3.githubusercontent.com/u/11255454?s=400&u=5a87d7f4eb60bb8b7c0a5d5c19fe16981e103f1d&v=4"
-              alt="Olivier's github profile picture"
+              alt="Olivier's github profile pic"
               style={{
                 borderRadius: "50%",
                 width: "72%",
