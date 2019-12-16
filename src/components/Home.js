@@ -5,7 +5,7 @@ export default function Home() {
     <div className="grid-y medium-grid-frame">
       <div className="cell medium-auto medium-cell-block-container">
         <div className="grid-x grid-padding-x">
-          <div className="cell medium-4 medium-cell-block-y">
+          <div className="cell medium-3 medium-cell-block-y">
             <img
               src="https://avatars3.githubusercontent.com/u/11255454?s=400&u=5a87d7f4eb60bb8b7c0a5d5c19fe16981e103f1d&v=4"
               alt="Olivier's github profile picture"
@@ -15,13 +15,21 @@ export default function Home() {
                 margin: "12%"
               }}
             />
-            <p className="text-center">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-              lacus odio, accumsan id ullamcorper eget, varius nec erat. Nulla
-              facilisi. Donec dui felis.
+            <h3 className="text-center">
+              <strong>Olivier JM Maniraho</strong>
+            </h3>
+            <p className="text-center subheader">
+              Senior Software Engineer at The ZIG by day and Opensource
+              contributor by night
+            </p>
+            <p className="text-center ">
+              Github:{" "}
+              <a href="https://github.com/olivierjm" className="text-center">
+                @olivierjm
+              </a>
             </p>
           </div>
-          <div className="cell medium-8 medium-cell-block-y">
+          <div className="cell medium-9 medium-cell-block-y">
             <h2>Independent scrolling body</h2>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
