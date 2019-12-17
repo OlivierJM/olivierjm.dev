@@ -1,7 +1,9 @@
 import React from "react"
 import headerStyles from "../styles/components/header.module.scss"
+import { Link } from "gatsby"
 
 export default function Header(props) {
+  console.log(props.page)
   return (
     <header
       className={`${headerStyles.header} ${props.page === "info" &&
@@ -32,6 +34,17 @@ export default function Header(props) {
                 <a href="https://github.com/olivierjm" className="text-center">
                   @olivierjm
                 </a>
+              </p>
+              {props.page !== "home" && (
+                <p className="text-center">
+                  <Link to="/">Home</Link>
+                </p>
+              )}
+              <p className="text-center">
+                <Link to="/projects">Projects</Link>
+              </p>
+              <p className="text-center">
+                <Link to="/blogs">Articles</Link>
               </p>
             </div>
           </div>
