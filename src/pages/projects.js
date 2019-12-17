@@ -1,9 +1,9 @@
 import React from "react"
-import blogListStyles from "../styles/components/bloglist.module.scss"
 import projects from "../../content/data/projects"
+import Layout from "../components/Layout"
 
-export default function BlogList() {
-  function renderBlogData() {
+export default function ProjectsList() {
+  function renderProjectsData() {
     return (
       <div>
         <div className="cell medium-9 medium-cell-block-y">
@@ -38,7 +38,7 @@ export default function BlogList() {
                             key={`${Math.random()}${tech}`}
                             style={{
                               display: "inline-block",
-                              // backgroundColor: "#d3d3d3",
+                              backgroundColor: "#d3d3d3",
                               borderRadius: 4,
                               marginRight: 10,
                               padding: 5,
@@ -59,5 +59,9 @@ export default function BlogList() {
       </div>
     )
   }
-  return <section>{renderBlogData()}</section>
+  return (
+    <Layout page="projects">
+      <section>{renderProjectsData()}</section>
+    </Layout>
+  )
 }

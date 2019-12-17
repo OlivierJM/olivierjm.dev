@@ -1,5 +1,6 @@
 import React from "react"
 import headerStyles from "../styles/components/header.module.scss"
+import { Link } from "gatsby"
 
 export default function Header(props) {
   return (
@@ -33,8 +34,12 @@ export default function Header(props) {
                   @olivierjm
                 </a>
               </p>
-              <p className="text-center">Projects</p>
-              <p className="text-center">Articles</p>
+              <p className="text-center">
+                <Link to="/projects">Projects</Link>
+              </p>
+              <p className="text-center">
+                <Link to="/blogs">Articles</Link>
+              </p>
             </div>
           </div>
         </div>
