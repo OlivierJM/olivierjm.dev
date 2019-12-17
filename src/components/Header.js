@@ -3,6 +3,7 @@ import headerStyles from "../styles/components/header.module.scss"
 import { Link } from "gatsby"
 
 export default function Header(props) {
+  console.log(props.page)
   return (
     <header
       className={`${headerStyles.header} ${props.page === "info" &&
@@ -34,6 +35,11 @@ export default function Header(props) {
                   @olivierjm
                 </a>
               </p>
+              {props.page !== "home" && (
+                <p className="text-center">
+                  <Link to="/">Home</Link>
+                </p>
+              )}
               <p className="text-center">
                 <Link to="/projects">Projects</Link>
               </p>
