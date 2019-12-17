@@ -37,7 +37,7 @@ export default function BlogList() {
     )
   }
   return (
-    <Layout page="info">
+    <Layout page="blogs">
       <section>
         <ul className={blogListStyles.list}>{renderBlogData()}</ul>
       </section>

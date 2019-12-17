@@ -33,6 +33,8 @@ export default function Header(props) {
                   @olivierjm
                 </a>
               </p>
+              <p className="text-center">Projects</p>
+              <p className="text-center">Articles</p>
             </div>
           </div>
         </div>
