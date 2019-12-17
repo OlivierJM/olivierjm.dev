@@ -1,0 +1,115 @@
+.list {
+  a:hover {
+    opacity: 1;
+    li {
+      .list__hero {
+        div {
+          picture {
+              opacity: 0.8;
+              transition: opacity 0.3s ease;
+            
+          }
+        }
+      }
+    }
+  }
+  .list__hero {
+    width: 100%;
+    height: 33vh;
+    overflow: hidden;
+    background-color: #000;
+    img {
+      object-fit: cover;
+      object-position: 50% 50%;
+      min-height: 100%;
+    }
+    div {
+      picture {
+        opacity: 1;
+        -webkit-transition: opacity .3s ease;
+        transition: opacity 0.3s ease;
+      }
+    }
+  }
+  .list__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.5rem 1.25rem;
+    border-bottom: 1px solid #ebebeb;
+    h2,
+    h3,
+    p {
+      -webkit-transform: translateX(0px);
+      transform: translateX(0px);
+      -webkit-transition: transform 0.5 ease-out;
+      transition: transform 0.5s ease-out;
+    }
+  }
+
+  li {
+    opacity: inherit;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 38vh;
+    margin-bottom: 0;
+  }
+  h2 {
+    margin-bottom: 0.5rem;
+  }
+  h3 {
+    margin-bottom: 1rem;
+  }
+  p {
+    max-width: 900px;
+  }
+}
+
+@media (min-width: 768px) {
+  .list {
+    a:hover {
+      opacity: 1;
+      li {
+        div.list__info {
+          h2,
+          h3,
+          p {
+            -webkit-transform: translateX(10px);
+            transform: translateX(10px);
+            -webkit-transition: transform 0.5s ease-out;
+            transition: transform 0.5s ease-out;
+          }
+        }
+      }
+    }
+    li {
+      min-height: 250px;
+      height: 33.333vh;
+      flex-direction: row;
+    }
+    .list__hero {
+      height: 100%;
+      img {
+        min-width: 100%;
+        height: 100%;
+        width: auto;
+        min-height: 0;
+      }
+    }
+    .list__info {
+      min-width: 70%;
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .list {
+    .list__info {
+      padding: 3rem;
+    }
+    h3 {
+      margin-bottom: 1.2rem;
+    }
+  }
+}
