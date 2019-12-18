@@ -23,10 +23,17 @@ export default function ProjectsList() {
                   <div className="card" style={{ height: "15em" }}>
                     <div className="card-section">
                       <h4>
-                        <a href={project.link}>{project.title}</a>
+                        <a href={project.link}>
+                          {project.title}{" "}
+                          <span
+                            role="img"
+                            aria-label="Github icon"
+                            className="fi-social-github"
+                          />
+                        </a>
                       </h4>
                       <p>{project.description}</p>
-                      <a href={project.demo}>{project.demo}</a>
+                      <a href={project.demo}>{project.demo}</a>{" "}
                       <ul
                         style={{
                           marginTop: 5,
