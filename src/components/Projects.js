@@ -18,7 +18,7 @@ export default function BlogList() {
   return (
     <section>
       <div className="cell medium-9 medium-cell-block-y">
-        <div class="grid-container">
+        <div className="grid-container">
           <div className="trails-main" onClick={() => set(state => !state)}>
             <div>
               {trail.map(({ x, height, ...rest }, index) => (
@@ -33,9 +33,7 @@ export default function BlogList() {
                   <animated.div style={{ height }}>{items[index]}</animated.div>
                 </animated.div>
               ))}
-              {!toggle && (
-                <h1 className="  subheader">This is my knowledge dump </h1>
-              )}
+              {!toggle && <h1 className="  subheader">🤗</h1>}
             </div>
           </div>
         </div>
