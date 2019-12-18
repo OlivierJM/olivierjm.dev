@@ -9,13 +9,17 @@ export default function BlogList() {
   const blogData = useBlogData()
   function renderBlogData() {
     return (
-      <div>
+      <div
+        style={{
+          marginTop: 40,
+        }}
+      >
         {blogData
           .filter(blog => blog.node.frontmatter.title !== "")
           .map(blog => {
             return (
               <Link to={`/blog/${blog.node.fields.slug}`} key={blog.node.id}>
-                <li className={blogListStyles.li} key={blog.node.fields.slug}>
+                <li key={blog.node.fields.slug}>
                   <div className={blogListStyles.list__hero}>
                     <Img
                       fluid={
@@ -30,6 +34,7 @@ export default function BlogList() {
                     <p>{blog.node.excerpt}</p>
                   </div>
                 </li>
+                <br />
               </Link>
             )
           })}

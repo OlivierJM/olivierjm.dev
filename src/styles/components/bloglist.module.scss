@@ -5,9 +5,8 @@
       .list__hero {
         div {
           picture {
-              opacity: 0.8;
-              transition: opacity 0.3s ease;
-            
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
           }
         }
       }
@@ -26,7 +25,7 @@
     div {
       picture {
         opacity: 1;
-        -webkit-transition: opacity .3s ease;
+        -webkit-transition: opacity 0.3s ease;
         transition: opacity 0.3s ease;
       }
     }
