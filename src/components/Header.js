@@ -3,7 +3,10 @@ import headerStyles from "../styles/components/header.module.scss"
 import { Link } from "gatsby"
 
 export default function Header(props) {
-  console.log(props.page)
+  const styles = {
+    margin: 20,
+    fontSize: 45,
+  }
   return (
     <header
       className={`${headerStyles.header} ${props.page === "info" &&
@@ -30,9 +33,26 @@ export default function Header(props) {
                 contributor by night
               </p>
               <p className="text-center ">
-                Github:
-                <a href="https://github.com/olivierjm" className="text-center">
-                  @olivierjm
+                <a
+                  href="https://github.com/olivierjm"
+                  style={styles}
+                  className="text-center "
+                >
+                  <i className="fi-social-github" />
+                </a>
+                <a
+                  href="https://medium.com/@olivierjm"
+                  style={styles}
+                  className="text-center"
+                >
+                  <i className="fi-social-medium" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/olivierjm/"
+                  style={styles}
+                  className="text-center"
+                >
+                  <i className="fi-social-linkedin" />
                 </a>
               </p>
               {props.page !== "home" && (
@@ -50,31 +70,6 @@ export default function Header(props) {
           </div>
         </div>
       </div>
-      {/* <nav
-        className={headerStyles.header__nav}
-        role="navigation"
-        aria-label="main navigation"
-      >
-        <Link to="/">
-          <h1>{props.title}</h1>
-        </Link>
-        <div>
-          <h1>
-            <Link
-              to={
-                props.page === 'info'
-                  ? "/"
-                  : "/info"
-              }
-              activeClassName={headerStyles.navItemActive}
-            >
-              {props.page === 'info'
-                ? "close"
-                : "info"}
-            </Link>
-          </h1>
-        </div>
-      </nav> */}
     </header>
   )
 }

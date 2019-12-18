@@ -19,11 +19,6 @@ export default function BlogList() {
     <section>
       <div className="cell medium-9 medium-cell-block-y">
         <div class="grid-container">
-          {/* <div class="grid-x grid-margin-x small-up-1 medium-up-2 large-up-3">
-            <h4 style={{ margin: "30%" }} className="text-center subheader">
-              Welcome to Olivierjm.dev
-            </h4>
-          </div> */}
           <div className="trails-main" onClick={() => set(state => !state)}>
             <div>
               {trail.map(({ x, height, ...rest }, index) => (
@@ -38,6 +33,9 @@ export default function BlogList() {
                   <animated.div style={{ height }}>{items[index]}</animated.div>
                 </animated.div>
               ))}
+              {!toggle && (
+                <h1 className="  subheader">This is my knowledge dump </h1>
+              )}
             </div>
           </div>
         </div>
