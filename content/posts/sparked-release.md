@@ -1,6 +1,6 @@
 ---
 date: 2019-04-02T17:16:07.430Z
-title: sparked-release
+title: SparkEd V2
 author: Olivier JM
 hero_image: "/content/images/sparked.png"
 ---

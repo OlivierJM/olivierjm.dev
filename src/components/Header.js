@@ -38,21 +38,33 @@ export default function Header(props) {
                   style={styles}
                   className="text-center "
                 >
-                  <i className="fi-social-github" />
+                  <span
+                    role="img"
+                    aria-label="Github icon"
+                    className="fi-social-github"
+                  />
                 </a>
                 <a
                   href="https://medium.com/@olivierjm"
                   style={styles}
                   className="text-center"
                 >
-                  <i className="fi-social-medium" />
+                  <span
+                    role="img"
+                    aria-label="Medium icon"
+                    className="fi-social-medium"
+                  />
                 </a>
                 <a
                   href="https://www.linkedin.com/in/olivierjm/"
                   style={styles}
                   className="text-center"
                 >
-                  <i className="fi-social-linkedin" />
+                  <span
+                    role="img"
+                    aria-label="LinkedIn icon"
+                    className="fi-social-linkedin"
+                  />
                 </a>
               </p>
               {props.page !== "home" && (

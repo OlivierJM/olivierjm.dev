@@ -33,7 +33,13 @@ export default function BlogList() {
                   <animated.div style={{ height }}>{items[index]}</animated.div>
                 </animated.div>
               ))}
-              {!toggle && <h1 className="  subheader">🤗</h1>}
+              {!toggle && (
+                <h1 className="  subheader">
+                  <span role="img" aria-label="welcome emojis">
+                    🤗
+                  </span>
+                </h1>
+              )}
             </div>
           </div>
         </div>
