@@ -1,8 +1,8 @@
 ---
 date: 2019-02-19T17:16:07.430Z
-title: An Introduction to writing tests in Javascript
+title: An Introduction to tests in Javascript
 author: Olivier JM
-hero_image: "/content/images/sparked.png"
+hero_image: "/content/images/example-sc.png"
 ---
 
 This article is going to show you the basic of writing tests in Javascript, If you are interested in testing an Expressjs server, check out this [article](https://medium.com/developer-circles-lusaka/how-to-write-an-express-js-server-using-test-driven-development-921dc55aec07) from [Mbuyu](https://github.com/makayi) that explains on **TDD**(Test Driven Development).  

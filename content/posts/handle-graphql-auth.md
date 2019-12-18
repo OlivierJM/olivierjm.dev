@@ -1,8 +1,8 @@
 ---
 date: 2019-04-02T17:16:07.430Z
-title: handle-graphql-auth
+title: How to Authentication with GraphQL
 author: Olivier JM
-hero_image: "/content/images/sparked.png"
+hero_image: "/content/images/auth.jpeg"
 ---
 
 I have always wanted to try out GraphQL and there are tonnes of resources on the internet on how to get started but I couldn't find one that explained best on how to handle authentication and authorization, some included other modules and packages that I didn't see to be a necessity in my set up, so I thought of sharing my set up.
