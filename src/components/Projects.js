@@ -1,5 +1,4 @@
 import React from "react"
-import "../styles/components/projects.css"
 
 const _quote = {
   quote:
@@ -22,37 +21,23 @@ export default function BlogList() {
       }
       setQuote(quoteData)
     }
-    getQuote()
+    const intervalId = setInterval(() => {
+      getQuote()
+    }, 10000)
+    return () => clearInterval(intervalId)
   }, [])
 
   return (
     <section>
       <div className="cell medium-9 medium-cell-block-y">
         <div className="grid-container">
-          <div className="trails-main">
-            <div>
-              <h1 className="text-center subheader">{quote.quote}</h1>
-              <p className="text-center">{quote.author}</p>
-              {/* {trail.map(({ x, height, ...rest }, index) => (
-                <animated.div
-                  key={items[index]}
-                  className="trails-text text-center "
-                  style={{
-                    ...rest,
-                    transform: x.interpolate(x => `translate3d(0,${x}px,0)`),
-                  }}
-                >
-                  <animated.div style={{ height }}>{items[index]}</animated.div>
-                </animated.div>
-              ))}
-              {!toggle && (
-                <h1 className="  subheader">
-                  <span role="img" aria-label="welcome emojis">
-                    🤗
-                  </span>
-                </h1>
-              )} */}
-            </div>
+          <div
+            style={{
+              marginTop: "20%",
+            }}
+          >
+            <h1 className="text-center subheader">{quote.quote}</h1>
+            <p className="text-center">{quote.author}</p>
           </div>
         </div>
       </div>
