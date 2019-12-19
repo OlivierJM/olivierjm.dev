@@ -1,27 +1,39 @@
 import React from "react"
-import { useTrail, animated } from "react-spring"
 import "../styles/components/projects.css"
 
-const items = ["olivierjm", ".", "dev"]
-const config = { mass: 5, tension: 2000, friction: 200 }
+const _quote = {
+  quote:
+    "Every great developer you know got there by solving problems they were unqualified to solve until they actually did it.",
+  author: "Patrick Mckenzie",
+}
 
 export default function BlogList() {
-  const [toggle, set] = React.useState(true)
-  const trail = useTrail(items.length, {
-    config,
-    opacity: toggle ? 1 : 0,
-    x: toggle ? 0 : 20,
-    height: toggle ? 80 : 0,
-    from: { opacity: 0, x: 20, height: 0 },
-  })
+  const [quote, setQuote] = React.useState(_quote)
+
+  React.useEffect(() => {
+    async function getQuote() {
+      const res = await fetch(
+        "http://quotes.stormconsultancy.co.uk/random.json"
+      )
+      const data = await res.json()
+      const quoteData = {
+        quote: data.quote,
+        author: data.author,
+      }
+      setQuote(quoteData)
+    }
+    getQuote()
+  }, [])
 
   return (
     <section>
       <div className="cell medium-9 medium-cell-block-y">
         <div className="grid-container">
-          <div className="trails-main" onClick={() => set(state => !state)}>
+          <div className="trails-main">
             <div>
-              {trail.map(({ x, height, ...rest }, index) => (
+              <h1 className="text-center subheader">{quote.quote}</h1>
+              <p className="text-center">{quote.author}</p>
+              {/* {trail.map(({ x, height, ...rest }, index) => (
                 <animated.div
                   key={items[index]}
                   className="trails-text text-center "
@@ -39,7 +51,7 @@ export default function BlogList() {
                     🤗
                   </span>
                 </h1>
-              )}
+              )} */}
             </div>
           </div>
         </div>
