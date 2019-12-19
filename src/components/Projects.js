@@ -9,6 +9,14 @@ const _quote = {
 export default function BlogList() {
   const [quote, setQuote] = React.useState(_quote)
 
+  function generateColor() {
+    return (
+      "#" +
+      Math.random()
+        .toString(16)
+        .substr(-6)
+    )
+  }
   React.useEffect(() => {
     async function getQuote() {
       const res = await fetch(
@@ -36,8 +44,22 @@ export default function BlogList() {
               marginTop: "20%",
             }}
           >
-            <h1 className="text-center subheader">{quote.quote}</h1>
-            <p className="text-center">{quote.author}</p>
+            <h1
+              style={{
+                color: generateColor(),
+              }}
+              className="text-center subheader"
+            >
+              {quote.quote}
+            </h1>
+            <p
+              style={{
+                color: generateColor(),
+              }}
+              className="text-center"
+            >
+              {quote.author}
+            </p>
           </div>
         </div>
       </div>
