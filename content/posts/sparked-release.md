@@ -1,6 +1,6 @@
 ---
 date: 2019-04-02T17:16:07.430Z
-title: sparked-release
+title: SparkEd V2
 author: Olivier JM
 hero_image: "/content/images/sparked.png"
 ---
@@ -51,8 +51,7 @@ To accommodate this we had to do a little change on some pages but most of other
 a simple example implementation of this is shown here
 
 ```Javascript
-/* eslint class-methods-use-this: "off" */
-/* eslint import/no-unresolved: "off" */
+
 import React, { Fragment } from 'react';
 import { PropTypes } from 'prop-types';
 import Header from '../components/layouts/Header';
@@ -165,7 +164,7 @@ export default UserInfo;
 another good feature to note is that SparkEd supports multiple languages, we provided a boilerplate that can be used with different languages.
 
 ```JSON
-// this is truncated and don't mind this comment in JSON 😉
+// this is truncated
 {
   "_locale": "en-us",
   "_namespace": "common",
@@ -293,7 +292,7 @@ You can read more about error boundaries from the react docs here [Error Boundar
 
 In the past, JavaScript errors inside components used to corrupt React's internal state and cause it to emit cryptic errors.
 
-## Bug Fixed
+## Bugs Fixed
 
 ### Video updating
 
