@@ -2,30 +2,29 @@
   Olivierjm.dev
 </h1>
 
-## About
+Find it live here https://olivierjm.dev
 
 ## Quick Setup
+**Contents**
 
-#### _Using the Gatsby CLI_
-
-In your terminal, navigate to where you would like this blog to live, then run
-
-```bash
-gatsby new [SITE_DIRECTORY_NAME] https://github.com/olivierjm/olivierjm.dev
-cd [SITE_DIRECTORY_NAME]
-yarn dev
-```
+- Basic profile info
+- Random dev quotes
+- Articles(dev and non-dev related)
+- Links to other sites
 
 #### _Set-up Locally_
 
 In your terminal, navigate to where you would like this blog to live, then run
 
 ```bash
-#clone the repo
-git clone git@github.com:olivierjm/olivierjm.dev.git
+#clone the repo using ssh
+git clone git@github.com:olivierjm/olivierjm.dev.git personal-website
+
+#clone the repo using https
+git clone https://github.com/olivierjm/olivierjm.dev.git personal-website
 
 #navigate to the directory
-cd olivierjm.dev
+cd personal-website
 
 #install dependencies & run dev server with yarn
 yarn install
