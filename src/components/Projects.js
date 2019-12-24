@@ -20,10 +20,7 @@ export default function BlogList() {
   React.useEffect(() => {
     async function getQuote() {
       const res = await fetch(
-        "http://quotes.stormconsultancy.co.uk/random.json",
-        {
-          "Content-Security-Policy": "upgrade-insecure-requests",
-        }
+        "http://quotes.stormconsultancy.co.uk/random.json"
       )
       const data = await res.json()
       const quoteData = {

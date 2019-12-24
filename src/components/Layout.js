@@ -18,6 +18,11 @@ export default function Layout(props) {
         <html lang="en" />
         <title>{title}</title>
         <meta name="description" content={description} />
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
+        />
+
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/foundation-sites@6.4.3/dist/css/foundation.min.css"
