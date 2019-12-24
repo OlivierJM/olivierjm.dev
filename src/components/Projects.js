@@ -1,14 +1,37 @@
 import React from "react"
+import posed from "react-pose"
+import SplitText from "react-pose-text"
 
-const _quote = {
-  quote:
-    "Every great developer you know got there by solving problems they were unqualified to solve until they actually did it.",
-  author: "Patrick Mckenzie",
+const _quote = [
+  {
+    quote:
+      "You should name a variable using the same care with which you name a first-born child.",
+    author: "James O. Coplien",
+  },
+  {
+    quote:
+      "Two things are infinite: the universe and human stupidity; and I’m not sure about the universe.",
+    author: "Albert Einstein",
+  },
+]
+
+const QuoteContainer = posed.div({
+  exit: {
+    x: "-100%",
+  },
+  enter: {
+    x: "0%",
+    beforeChildren: true,
+    staggerChildren: 50,
+  },
+})
+
+const charPoses = {
+  exit: { opacity: 0 },
+  enter: { opacity: 1 },
 }
 
 export default function BlogList() {
-  const [quote, setQuote] = React.useState(_quote)
-
   function generateColor() {
     return (
       "#" +
@@ -17,23 +40,6 @@ export default function BlogList() {
         .substr(-6)
     )
   }
-  React.useEffect(() => {
-    async function getQuote() {
-      const res = await fetch(
-        "http://quotes.stormconsultancy.co.uk/random.json"
-      )
-      const data = await res.json()
-      const quoteData = {
-        quote: data.quote,
-        author: data.author,
-      }
-      setQuote(quoteData)
-    }
-    const intervalId = setInterval(() => {
-      getQuote()
-    }, 10000)
-    return () => clearInterval(intervalId)
-  }, [])
 
   return (
     <section>
@@ -44,22 +50,30 @@ export default function BlogList() {
               marginTop: "20%",
             }}
           >
-            <h1
-              style={{
-                color: generateColor(),
-              }}
-              className="text-center subheader"
-            >
-              {quote.quote}
-            </h1>
-            <p
-              style={{
-                color: generateColor(),
-              }}
-              className="text-center"
-            >
-              {quote.author}
-            </p>
+            <QuoteContainer initialPose="exit" pose="enter">
+              {_quote.map(quote => (
+                <React.Fragment key={Math.random() + 1}>
+                  <h1
+                    style={{
+                      color: generateColor(),
+                    }}
+                    className="text-center subheader"
+                  >
+                    <SplitText charPoses={charPoses}>{quote.quote}</SplitText>
+                  </h1>
+                  <span
+                    style={{
+                      color: generateColor(),
+                      float: "right",
+                    }}
+                  >
+                    <SplitText charPoses={charPoses}>{quote.author}</SplitText>
+                  </span>
+                  <br />
+                  <br />
+                </React.Fragment>
+              ))}
+            </QuoteContainer>
           </div>
         </div>
       </div>

@@ -18,10 +18,6 @@ export default function Layout(props) {
         <html lang="en" />
         <title>{title}</title>
         <meta name="description" content={description} />
-        <meta
-          http-equiv="Content-Security-Policy"
-          content="upgrade-insecure-requests"
-        />
 
         <link
           rel="stylesheet"
