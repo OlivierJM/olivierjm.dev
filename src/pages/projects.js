@@ -16,8 +16,8 @@ export default function ProjectsList() {
           >
             Projects I contribute to
           </h4>
-          <div class="grid-container">
-            <div class="grid-x grid-margin-x small-up-1 medium-up-2 large-up-3">
+          <div className="grid-container">
+            <div className="grid-x grid-margin-x small-up-1 medium-up-2 large-up-3">
               {projects.map(project => (
                 <div key={project.id} className="cell">
                   <div className="card" style={{ height: "15em" }}>

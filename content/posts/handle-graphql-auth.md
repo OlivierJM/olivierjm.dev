@@ -1,6 +1,6 @@
 ---
 date: 2019-04-02T17:16:07.430Z
-title: How to Authentication with GraphQL
+title: How to handle authentication with GraphQL
 author: Olivier JM
 hero_image: "/content/images/auth.jpeg"
 ---
