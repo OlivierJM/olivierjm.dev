@@ -10,8 +10,8 @@ const _quote = [
   },
   {
     quote:
-      "Two things are infinite: the universe and human stupidity; and I’m not sure about the universe.",
-    author: "Albert Einstein",
+      "Success is no accident. It is hard work, perseverance, learning, studying, sacrifice and most of all, love of what you are doing or learning to do.",
+    author: "Pele",
   },
 ]
 
