@@ -35,3 +35,5 @@ fields:
   label: hero image
   description: Enter hero image for blog post here
   default: "/content/images/sarah-dorweiler-9Z1KRIfpBTM-unsplash.jpg"
+pages:
+- content/posts/few-features-i-have-worked-on-recently.md
