@@ -8,7 +8,8 @@ export default function BlogList() {
             style={{
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                flexDirection: 'column'
             }}
           >
            Welcome to My little thought dump
