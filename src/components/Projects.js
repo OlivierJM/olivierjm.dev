@@ -8,7 +8,9 @@ export default function BlogList() {
         <div className="grid-container">
           <div
             style={{
-              marginTop: "20%",
+                marginTop: "20%",
+                margin: 'auto',
+                width:' 50%',
             }}
           >
            Welcome to My little thought dump
