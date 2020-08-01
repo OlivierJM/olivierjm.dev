@@ -9,7 +9,7 @@ export default function BlogList() {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                flexDirection: 'column'
+                flexDirection: 'row'
             }}
           >
            Welcome to My little thought dump
