@@ -29,7 +29,7 @@ export default function Header(props) {
                 <strong>Olivier JM Maniraho</strong>
               </h3>
               <p className="text-center subheader">
-                Senior Software Engineer at The ZIG
+                Senior Software Engineer at DoubleGDP
               </p>
               <p className="text-center ">
                 <a
