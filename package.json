@@ -14,7 +14,7 @@
   "author": "Arpit Batra (arpitbatra123@gmail.com)",
   "license": "MIT",
   "devDependencies": {
-    "@11ty/eleventy": "^0.11.1",
+    "@11ty/eleventy": "^0.12.1",
     "concurrently": "^6.0.0",
     "node-sass": "^5.0.0"
   },
