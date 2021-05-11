@@ -1,7 +1,7 @@
 {
-  "name": "eleventy-blog-mnml",
+  "name": "olivierjm",
   "version": "1.0.0",
-  "description": "A Blog Template using eleventy and terminal css.",
+  "description": "a minimal blog for my casual posts",
   "scripts": {
     "build": "eleventy && npm run sass",
     "serve": "concurrently 'eleventy --serve' 'npm run sass:watch'",
