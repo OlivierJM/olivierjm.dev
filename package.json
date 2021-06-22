@@ -5,7 +5,7 @@
   "scripts": {
     "build": "eleventy && npm run sass",
     "serve": "concurrently 'eleventy --serve' 'npm run sass:watch'",
-    "sass": "node-sass --output  _site/styles/ styles/",
+    "sass": "sass styles:_site/styles",
     "sass:watch": "npm run sass && npm run sass -- -w",
     "clean": "rm -rf _site",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,7 +16,7 @@
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",
     "concurrently": "^6.0.0",
-    "node-sass": "^5.0.0"
+    "sass": "^1.35.1"
   },
   "dependencies": {
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.6"

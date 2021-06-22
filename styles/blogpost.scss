@@ -2,6 +2,7 @@
 @import './prism-theme.scss';
 .post-container {
   margin-top: 32px;
+  
   h1 {
     margin-bottom: 32px;
   }
@@ -21,7 +22,9 @@
   }
 
   .content {
-    line-height: 22px;
+    line-height: 24px;
+    // font-size: 19px;
+
     h2 {
       margin: 24px 0 8px;
       font-weight: normal;
