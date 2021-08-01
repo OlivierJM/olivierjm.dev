@@ -25,3 +25,6 @@ We design applications for different users in different parts of the world and a
 
 Internationalization is implemented differently depending on the programming language you are using, In this article we will talk briefly on how this is done in the browser and basically in Javascript. 
 
+
+#### To be completed 
+
