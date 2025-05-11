@@ -114,9 +114,10 @@ async function build() {
     const indexTags = {
       posts,
       backLink: "",
+      title: siteConfig.title
     };
 
-    const indexHtml = et.render("layout", {...indexTags, ...commonTags});
+    const indexHtml = et.render("layout", { ...commonTags, ...indexTags,});
 
     await fs.writeFile(outputFilename, finalHtml, "utf-8");
     await fs.writeFile(

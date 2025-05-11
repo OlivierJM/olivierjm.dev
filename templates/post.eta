@@ -8,10 +8,6 @@
 </head>
 
 <body>
-  <nav class="container">
-    <a href="<%= it.baseUrl %>"><strong><%= it.siteTitle %></strong></a>
-  </nav>
-
   <main class="container">
     <div>
       <h1><%= it.title %></h1>
