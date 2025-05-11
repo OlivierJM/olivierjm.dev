@@ -1,0 +1,6 @@
+<header>
+  <h1><%= it.siteTitle %></h1>
+  <% if (it.description) { %>
+  <p><%= it.description %></p>
+  <% } %>
+</header>

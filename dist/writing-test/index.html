@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>An Introduction to tests in Javascript - Olivierjm&#39;s blog</title>
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css" />
+</head>
+
+<body>
+  <main class="container">
+    <div>
+      <h1>An Introduction to tests in Javascript</h1>
+      <p><small>Tue Feb 19 2019</small></p>
+      <p><a href="/">← Back to home</a></p>      <p>This article is going to show you the basic of writing tests in Javascript, If you are interested in testing an Expressjs server, check out this <a href="https://medium.com/developer-circles-lusaka/how-to-write-an-express-js-server-using-test-driven-development-921dc55aec07">article</a> from <a href="https://github.com/makayi">Mbuyu</a> that explains on <strong>TDD</strong>(Test Driven Development).<br>At BongoHive we use tests in most of the code written and this is the effort to share with the community the basic approach</p>
+<h3>Introduction</h3>
+<p>As Mbuyu explained in his article, sometimes you find yourself in a situation where your code isn&#39;t working as expected because of small or big changes you made, now imagine you had this feature it was working perfectly and when demoing it to the client it just crashes 🥺 unexpectedly.</p>
+<p>As developers our job isn&#39;t just to develop features that work but to ensure that those features will still work even in the future when other changes are made to the codebase.</p>
+<p><strong>We don&#39;t write tests to check if our code works. We write tests to be able to change it in the future with certain degree of confidence that we don&#39;t break anything</strong></p>
+<p>In this introduction we are going to write <strong>unit tests</strong>, these are basic tests to make sure an individual function is working as expected. we will use <a href="https://jestjs.io/"><strong>Jest</strong></a> a testing framework from facebook.</p>
+<p>a typical example would look like this.</p>
+<pre><code class="language-javascript">function add(a, b) {
+  return a + b
+}
+// test if the add really adds two numbers
+it(&quot;should add two given numbers&quot;, () =&gt; {
+  expect(add(2, 5)).toBe(7)
+})
+</code></pre>
+<h3>What we are going to build</h3>
+<p>We are going to use a functional approach to build small pure functions, remember a function should only do one thing and do it well, this makes it easy to test as you will see in the following examples.</p>
+<p><strong>Problem</strong> We have an input field and we expected the users to type any kind of phone number, but let&#39;s say we want to do an internal validation, we could give the user feedback that their phone numbers are wrong but for the sake of this exercise, let&#39;s just format the given value and test if our functions are working.</p>
+<p>The numbers we expect from the users can be in this format, <strong>+2609XXXXXX, 09XXXXXXXX, 9XXXXXXXX</strong> the format we are looking for is this <strong>260 9XXXXXXXX</strong></p>
+<blockquote>
+<p>Let&#39;s start with making sure there is no (+) in the given number</p>
+</blockquote>
+<h4>remove Symbol</h4>
+<pre><code class="language-javascript">function removeSymbol(number) {
+  // make sure we are getting a string
+  if (typeof number !== &quot;string&quot;) throw new TypeError(&quot;Expected string&quot;)
+  // check if the number has the + sign and remove it
+  if (number.includes(&quot;+&quot;)) {
+    return number.replace(/\+/gi, &quot;&quot;)
+  }
+  return number
+}
+
+// using flat arrows
+const removeSymbol = number =&gt;
+  number.includes(&quot;+&quot;) ? number.replace(/\+/gi, &quot;&quot;) : number
+
+// usage for the above
+removeSymbol(&quot;+260972342432&quot;) // would give us this &quot;260972342432&quot;
+removeSymbol(&quot;260972342432&quot;) // &quot;260972342432&quot;
+</code></pre>
+<p>The function above basically does one thing, it checks if the given value contains a &quot;+&quot; and removes if it&#39;s there or it will just return the given value as it was.</p>
+<p>Now let&#39;s write a simple for this function using <strong>Jest</strong></p>
+<pre><code class="language-javascript">it(&quot;should remove the + symbol if it exists&quot;, () =&gt; {
+  expect(removeSymbol(&quot;+260&quot;)).toBe(&quot;260&quot;)
+})
+
+it(&quot;should return the given value if not + symbol found&quot;, () =&gt; {
+  expect(removeSymbol(&quot;500&quot;)).toBe(&quot;500&quot;)
+})
+// since the argument should be a string, let&#39;s test that as well
+</code></pre>
+<p>So far the tests we have written are only functional and logical tests just to check if our functions work as expected, now we could also test how our function behaves even we give it a wrong type, check out <a href="https://jestjs.io/docs/en/using-matchers#common-matchers">jest matchers</a> there are many you can use for different cases of your tests.</p>
+<h4>remove Prefix</h4>
+<p>We need to write another function that checks if the user typed in the number with a country code, this could be something like this <code>260934334</code> since our goal is to properly format the number, we can get rid of the country code and append it later on.
+Let&#39;s do that</p>
+<pre><code class="language-javascript">// zambian mobile numbers start with 09x in case the user typed it start with a 2
+// then its a country code prefixed
+
+// es6
+const removePrefix = num =&gt;
+  num[0] == 2 ? num.substring(3) : num[0] == 0 ? num.substring(1) : num
+
+// es5
+function removePrefix(num) {
+  if (num[0] == 2) {
+    // check if it starts with a 2
+    return num.substring(3) // remove numbers up to index 2 of the value
+  } else if (num[0] == 0) {
+    // check if the value starts with a zero
+    return num.substring(1) // remove the o
+  }
+  return num
+}
+</code></pre>
+<p>If you are wondering why I didn&#39;t use the &quot;===&quot; It is because of type <strong>coersion</strong> if you compare 2 as a number with a &quot;2&quot; as a string, in <strong>Javascript</strong> if both types are not the same it will try and convert one to an equivalent value of the other. so if we do <code>2 == &quot;2&quot;</code> we end up with <code>2 == 2</code> which is true, however if you use &quot;===&quot; the case will be different.</p>
+<p>Let&#39;s write unit tests for our removePrefix function, we will simply provide our function with different values to see if it will work as expected.</p>
+<pre><code class="language-javascript">it(&quot;removes the zm country code&quot;, () =&gt; {
+  expect(removePrefix(&quot;260923423&quot;)).toBe(&quot;923423&quot;)
+})
+it(&quot;removes the starting zero&quot;, () =&gt; {
+  expect(removePrefix(&quot;0923423&quot;)).toBe(&quot;923423&quot;)
+})
+
+// in the above tests you can see that the end result is all the same.
+// you can add more tests here, like checking if the function was actually called, etc ...
+</code></pre>
+<p>So far we have written 2 functions that we will use to clean up the input we will get from the user.</p>
+<ul>
+<li>removeSymbol()</li>
+<li>removePrefix()</li>
+</ul>
+<p>If you are wondering why we separated the 2 functions, the reason is that we want to be able to test these functions independently from each other.<br>If we wanted we can use our functions this way <code>removePrefix(removeSymbol(value))</code> but we will look at a better way of doing this.</p>
+<h4>append the correct country code</h4>
+<p>Now that we have cleaned the input value from the user, we can append it with a correct country code and the desired space, remember that our number should be formatted like this <code>260 97139798</code></p>
+<p>There are many ways we could do this, but I will go through a simpler approach which is more functional and I will explain the implementation.<br>we are going to use a library called <strong>ramdajs</strong> which provides easy to use helpers for functional data manupilation, and we just need 2(<code>compose and curry</code>).
+You can check here for the finished code <a href="https://codesandbox.io/s/github/OlivierJM/number-formatter">https://codesandbox.io/s/github/OlivierJM/number-formatter</a></p>
+<pre><code class="language-javascript">import * as R from &quot;ramda&quot;
+
+const appendCountryCode = R.curry((number, code) =&gt; `${code} ${number}`)
+</code></pre>
+<p>The above function will be used partially in our next compose function we are going to create, this is to allow us to partially pass arguments and return a function that we can pass to the compose with one argument, after the input has been cleaned. 😉</p>
+<p><strong>currying</strong> is a method of returning a function if the passed arguments didn&#39;t satisfy the function in question, as Dr. Axel explained</p>
+<blockquote>
+<p><em>The idea is as follows: If you don&#39;t provide all parameters for a function, it returns a function whose input are the remaining parameters and whose output is the result of the original function.</em> read more on this <a href="https://ramdajs.com/docs/#curry">here</a></p>
+</blockquote>
+<p><strong>compose</strong> or functional composition is a way of combining two or more functions intro a new function, one important thing to keep in mind is that it runs from right to left. ← ← ← ← ←</p>
+<pre><code class="language-javascript">import * as R from &quot;ramda&quot;
+
+const formatNumber = R.compose(
+  appendCountryCode,
+  removePrefix,
+  removeSymbol
+)
+
+// the above function can be called like this
+formatNumber(numberToformat)(countryCode)
+</code></pre>
+<p>our final function is a combination of 3 functions we created above, but since this is a <strong>compose</strong> function it runs from right to left, so in this case it will start with <code>removeSymbol</code>, then <code>removePrefix</code> then finally with our <code>appendCountryCode</code> since the function will be curried, you will need to pass with a final argument therefore <code>formatNumber(numberToformat)(countryCode)</code> .</p>
+<p>Now we can write unit tests for either the formatNumber or appendCountryCode, if you want to can test both, I am going to test the <strong>formatNumber</strong> since it makes use of the <strong>appendCountryCode</strong> curried function.</p>
+<pre><code class="language-javascript">it(&quot;should add the country when number starts with 9&quot;, () =&gt; {
+  expect(formatNumber(&quot;943434&quot;)(&quot;260&quot;)).toEqual(&quot;260 943434&quot;)
+})
+
+it(&quot;should format even if the code existed&quot;, () =&gt; {
+  expect(formatNumber(&quot;+260943434&quot;)(&quot;260&quot;)).toEqual(&quot;260 943434&quot;)
+})
+
+it(&quot;should format even if number is spaced out&quot;, () =&gt; {
+  expect(formatNumber(&quot;+260 943434&quot;)(&quot;260&quot;)).toEqual(&quot;260 943434&quot;)
+})
+</code></pre>
+<p>Our tests should be passing now</p>
+<h4>Conclusion</h4>
+<p>In this article we only demonstrated writing simple functions and testing them using jest matchers, we also got introduced to the bits of the functional programming using <strong>ramdajs</strong>.<br><strong>Jest</strong> is a javascript testing framework that provides you with all the tools you need to get up and running with your tests.
+In the next article we will look at how to test the DOM in react and we will use Test Driven Development.</p>
+
+       <br>
+       <hr>
+       <p>
+         Published on: Tue Feb 19 2019 by <cite><a href="https://github.com/olivierjm" target="_blank">Olivier JM</a></cite>
+       </p>
+    </div>
+  </main>
+</body>
+</html>

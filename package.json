@@ -1,24 +1,20 @@
 {
-  "name": "olivierjm",
+  "name": "nina",
   "version": "1.0.0",
-  "description": "a minimal blog for my casual posts",
+  "description": "a minimal static site generator built for learning purposes",
+  "main": "index.js",
   "scripts": {
-    "build": "eleventy && npm run sass",
-    "serve": "concurrently 'eleventy --serve' 'npm run sass:watch'",
-    "sass": "sass styles:_site/styles",
-    "sass:watch": "npm run sass && npm run sass -- -w",
-    "clean": "rm -rf _site",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node index.js"
   },
   "keywords": [],
-  "author": "olivierjm (manolivier93@gmail.com)",
-  "license": "MIT",
-  "devDependencies": {
-    "@11ty/eleventy": "^0.12.1",
-    "concurrently": "^6.0.0",
-    "sass": "^1.35.1"
-  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
   "dependencies": {
-    "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.6"
+    "eta": "^3.5.0",
+    "fs-extra": "^11.3.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^15.0.8"
   }
 }

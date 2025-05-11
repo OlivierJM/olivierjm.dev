@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>SparkEd V2 - Olivierjm&#39;s blog</title>
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css" />
+</head>
+
+<body>
+  <main class="container">
+    <div>
+      <h1>SparkEd V2</h1>
+      <p><small>Tue Apr 02 2019</small></p>
+      <p><a href="/">← Back to home</a></p>      <h2>Introduction</h2>
+<p>This project was inspired from working on a variety of educational programs in sub-Saharan Africa over the past decade where lack of access to educational resources and poor and/or expensive internet remain challenges. After working with a number of different platforms, we could not find one with flexibility to add local content (which in many cases is extensive and well developed) organized around local curriculum, programs and resources.
+SparkEd remains open source</p>
+<blockquote>
+<p>SparkEd was deployed on a server and it loaded more than 1,500 resources. It worked very well in an office setting and was tested with 20 hosts.</p>
+</blockquote>
+<h2>Initial Development</h2>
+<p>The SparkEd design offers ability to add textbooks and other locally owned or publicly available content organized by school, grade, class, module, program, etc. and deliverable on any LAN or on mobile devices.
+Initial programming was done in Zambia by programmers at Hackers Guild(@hackersguild) who trained programmers in Ethiopia (@supedplc). End product of the project in Ethiopia now includes all Secondary and Preparatory subjects and content (grades 9–12) with suplemental content delivered on servers that are radio-linked for updating. (see E-learning Tool Development ). Software is meant to be available for use in any setting where content is developed and could be uploaded.</p>
+<h2>Tech Stack</h2>
+<p>SparkEd is written entirely in Javascript apart from some utilities written in bash.</p>
+<ul>
+<li>Meteorjs</li>
+<li>Reactjs</li>
+<li>MongoDB</li>
+<li>Docker</li>
+<li>Travis CI</li>
+</ul>
+<p><strong>Meteorjs</strong> was used as a backend for file storage, database communication and fast reactive data serving, Meteorjs has been a good option in this case because the reactivity it provides made it for us to provide users with real time data, the cons were on testing and deployment, testing meteor apps isn&#39;t easy but this is only the setup and lots of mocking that needs to be done.</p>
+<p>Reactjs due to how much dynamic and real time data SparkEd has we found it wise to use reactjs and we don&#39;t regret this choice, implementing things features like language translation and dark mode was much easier than it could have been.
+<strong>MongoDB</strong>
+we used MongoDB as our database, on this one we really didn&#39;t have much choice since Meteorjs comes bundled with it and it is a very seemless integration, actually even some of the resources are stored in <strong>MongoDB GRIDFS</strong> to easily manage file backup and real time serving.</p>
+<p>We used <strong>Docker</strong> hub to host the image of SparkEd which is publicly available and you can find it here.</p>
+<p>For continuous integration and continuous deployment we used <strong>TravisCI</strong> which has been working for our case but the plans is to migrate to Jenkins.
+For the build history of SparkEd on TravisCI you can find it all here.
+We used TravisCI to make sure that all required tests and lint rules pass before any pull request is merged into the master.</p>
+<p>Since SparkEd runs mostly in offline environment we don&#39;t have it hosted online, however we keep the docker image updated on every pull request merged or any changes committed to the master, this makes it easy for us to avoid the need of doing this manually and anyone can pull and run that image smooothly.</p>
+<h2>Notable new features</h2>
+<h3>Dark mode</h3>
+<p>The implementation of night mode was an important implementation, many users stay on the screen for too long and we don&#39;t know exactly at what time users might be using the software so it was best to provide a way for users to choose night or day mode.</p>
+<p>To accommodate this we had to do a little change on some pages but most of other components were ready for this update, for pages that had lists, it was a bit hard to implement this in a more pleasing way and we decided to re-design such pages, these included notification, the modal wrapper and the feedback page.
+a simple example implementation of this is shown here</p>
+<pre><code class="language-js">
+import React, { Fragment } from &#39;react&#39;;
+import { PropTypes } from &#39;prop-types&#39;;
+import Header from &#39;../components/layouts/Header&#39;;
+
+export const ThemeContext = React.createContext();
+
+export default class AppWrapper extends React.Component {
+  state = {
+    isDark: JSON.parse(localStorage.getItem(&#39;isDark&#39;)),
+    mainDark: &#39;#212121&#39;,
+    main: &#39;#005555&#39;,
+  };
+  toggleDarkMode = async () =&gt; {
+    await this.setState(state =&gt; ({
+      isDark: !state.isDark,
+    }));
+    await localStorage.setItem(&#39;isDark&#39;, JSON.parse(this.state.isDark));
+  };
+  render() {
+    const { children } = this.props;
+    const { isDark } = this.state;
+    return (
+      &lt;ThemeContext.Provider
+        value={{ state: this.state, toggle: this.toggleDarkMode }}
+      &gt;
+        &lt;div style={{ backgroundColor: isDark ? &#39;#252829&#39; : &#39;#fff&#39; }}&gt;
+          &lt;Header /&gt;
+          &lt;Fragment&gt;{children}&lt;/Fragment&gt;
+        &lt;/div&gt;
+      &lt;/ThemeContext.Provider&gt;
+    );
+  }
+}
+
+AppWrapper.propTypes = {
+  children: PropTypes.node.isRequired,
+  color: PropTypes.object,
+};
+</code></pre>
+<p>You can see the themecontext being used here in the same component that toggles the day/night here.</p>
+<pre><code class="language-js">
+// This file has been truncated for brevity
+
+import React, { Fragment, Component } from &#39;react&#39;;
+import { Meteor } from &#39;meteor/meteor&#39;;
+import PropTypes from &#39;prop-types&#39;;
+import i18n from &#39;meteor/universe:i18n&#39;;
+import { ThemeContext } from &#39;../../containers/AppWrapper&#39;;
+
+const T = i18n.createComponent();
+
+class UserInfo extends Component {
+
+  render() {
+    const user = Meteor.user();
+    return (
+      &lt;ThemeContext.Consumer&gt;
+        {({ state }) =&gt; (
+          &lt;div&gt;
+            &lt;MainModal
+              show={isOpen}
+              onClose={this.close}
+              subFunc={this.handleSubmit}
+              title={title}
+              confirm={confirm}
+              reject={reject}
+            /&gt;
+            &lt;ul
+              id=&quot;slide-out&quot;
+              className=&quot;sidenav&quot;
+              style={{
+                backgroundColor: state.isDark ? state.mainDark : &#39;#ffffff&#39;, // an implementation of the theme from the context
+              }}
+            &gt;
+            {/* The switch that toggles day/night mode */}
+              &lt;div className=&quot;switch&quot;&gt;
+                &lt;label&gt;
+                  Day Mode
+                  &lt;input
+                    type=&quot;checkbox&quot;
+                    onChange={this.props.handleNightMode}
+                    checked={this.props.checked}
+                  /&gt;
+                  &lt;span className=&quot;lever&quot; /&gt;
+                  Night Mode
+                &lt;/label&gt;
+              &lt;/div&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        )}
+      &lt;/ThemeContext.Consumer&gt;
+    );
+  }
+}
+UserInfo.propTypes = {
+  handleNightMode: PropTypes.func.isRequired,
+  checked: PropTypes.bool.isRequired,
+};
+
+export default UserInfo;
+</code></pre>
+<h3>Internationalisation and Localisation</h3>
+<p>another good feature to note is that SparkEd supports multiple languages, we provided a boilerplate that can be used with different languages.</p>
+<pre><code class="language-json">// this is truncated
+{
+  &quot;_locale&quot;: &quot;en-us&quot;,
+  &quot;_namespace&quot;: &quot;common&quot;,
+  &quot;language&quot;: {
+    &quot;enUS&quot;: &quot;English - U.S.&quot;,
+    &quot;esES&quot;: &quot;Spanish - SP&quot;,
+    &quot;frFr&quot;: &quot;French - FR&quot;,
+    &quot;Language&quot;: &quot;Language&quot;
+  },
+  &quot;header&quot;: {
+    &quot;openExternalLink&quot;: &quot;Click here to Open all the external links in a page&quot;,
+    &quot;externalLink&quot;: &quot;External Links&quot;
+  },
+  &quot;notFound&quot;: &quot;Oooops Page not Found Take me&quot;,
+  &quot;titles&quot;: {
+    &quot;addreference&quot;: &quot;Add Reference&quot;,
+    &quot;referenceDisplaced&quot;: &quot;References displayed&quot;,
+    &quot;feedback&quot;: &quot;Feedback&quot;,
+    &quot;source&quot;: &quot;Source&quot;,
+    &quot;usersfeedback&quot;: &quot;Users Feedback&quot;,
+    &quot;notifications&quot;: &quot;Notifications&quot;,
+    &quot;bookmarks&quot;: &quot;Bookmarks&quot;
+  }
+}
+</code></pre>
+<p>Normally the file above is long and includes all translations that are used across the SparkEd, the translation files are according to how many languages you want to support if you have your own fork of this project.
+This is the english but if you want to support french you would then have a similar file then change on the values like the following:
+Note: the file was truncated for brevity.</p>
+<pre><code class="language-json">  &quot;titles&quot;: {
+    &quot;addreference&quot;: &quot;Ajouter Références&quot;,
+    &quot;referenceDisplaced&quot;: &quot;Références affichées&quot;,
+    &quot;feedback&quot;: &quot;Commentaire&quot;,
+    &quot;source&quot;: &quot;Source&quot;,
+    &quot;usersfeedback&quot;: &quot;Commentaires de l&#39;utilisateur&quot;,
+    &quot;notifications&quot;: &quot;Notifications&quot;,
+    &quot;bookmarks&quot;: &quot;Signets&quot;
+  }
+</code></pre>
+<p>This can be applied to as many languages as you would want to support.
+The interesting part of this implementation is that it doesn&#39;t only affect the user interface language but also the contents that users are able to see.
+The reason for this implementation is this, in the current setup of SparkEd in Ethiopia, they have different language and that means the contents delivered is should match the language in that region.</p>
+<p>Users still have an option to choose what they want to see and what language they want to navigate SparkEd in and Administrators can choose a language whose data they are adding belongs to.</p>
+<p>e.g: If an administrator or a content-manager is uploading a video, they can choose what language that video is in, this helps users get the right content, without digging much.</p>
+<p>Another slightly minor feature we added was stats, Administrators initially were able to see who is viewing what resource and how many times(Thanks to Brian Mukuka) but they needed a way to also view statistics for all the contents that SparkEd has, this was a simple implementation but it was important and it comes as an update to this current version.</p>
+<h3>ErrorBoundary</h3>
+<p><code>ErrorBoundaries</code> were introduced in React v16 and this was an important feature for us because some components in one way or another would break in production, and when one react component breaks the whole app breaks, but with an ErrorBoundary component you can choose what to render instead and provide a better experience to the user, this can also include a guidance on how the user can troubleshoot the problem, how they can contact the maintainer or even the administrator, and this will be while the rest of the app is still functioning.
+The error boundary is a component like any other, it takes children as other components. consider this example shown below.</p>
+<pre><code class="language-js">
+import React, { Component } from &#39;react&#39;;
+import { PropTypes } from &#39;prop-types&#39;;
+import { Meteor } from &#39;meteor/meteor&#39;;
+import { formatText } from &#39;../utils/utils&#39;;
+
+export default class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  componentDidCatch(error, info) {
+    this.setState({ hasError: true, info });
+    Meteor.call(&#39;logger&#39;, formatText(error, Meteor.userId(), &#39;error-boundary&#39;), &#39;error&#39;);
+  }
+  takeBack = e =&gt; {
+    e.preventDefault();
+    return history.go(-1);
+  };
+  render() {
+    const { hasError } = this.state;
+    const { children } = this.props;
+    if (hasError) {
+      return (
+        &lt;&gt;
+          &lt;h1 className=&quot;notFoundHead&quot;&gt;
+            Error Happened &lt;i className=&quot;fa fa-frown-o&quot; /&gt;
+          &lt;/h1&gt;
+          &lt;h3 className=&quot;notFound&quot;&gt;
+            {&#39; &#39;}
+            Sorry it seems like something went wrong &lt;br /&gt;Try
+            &lt;a href=&quot;&quot; onClick={e =&gt; this.takeBack(e)}&gt;
+              {&#39; &#39;}
+              go back
+            &lt;/a&gt;
+          &lt;/h3&gt;
+        &lt;/&gt;
+      );
+    }
+    return children;
+  }
+}
+ErrorBoundary.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+</code></pre>
+<p>An implement of the above component is simply to wrap another component inside the <code>&lt;ErrorBoundary /&gt;</code></p>
+<pre><code class="language-js">
+    &lt;ErrorBoundary&gt;
+        &lt;ComponentThatCanCauseAnError /&gt;
+    { /* If you want you can even nest this */ }
+        &lt;ErrorBoundary&gt;
+            &lt;AnotherComponent /&gt;
+        &lt;/ErrorBoundary&gt;
+    &lt;/ErrorBoundary&gt;
+</code></pre>
+<p>The errors caught in the nested component are sent to the parent component which in this case the ErrorBoundary and you can do whatever you want to do with error.
+You can read more about error boundaries from the react docs here <a href="https://reactjs.org/docs/error-boundaries.html#introducing-error-boundaries">Error Boundaries - React</a></p>
+<p>In the past, JavaScript errors inside components used to corrupt React&#39;s internal state and cause it to emit cryptic errors.</p>
+<h2>Bugs Fixed</h2>
+<h3>Video updating</h3>
+<p>There was a bug that was reported, videos were not updating if you are viewing a pdf resource then you change back to video the UI wasn&#39;t noticing the change,
+you can read the issue details here<br><a href="https://github.com/SparkEdUAB/SparkEd/issues/13">Videos doesn&#39;t update · Issue #13 · SparkEdUAB/SparkEd</a>
+The videos don&#39;t update only when you change the resource type and go back to the video.</p>
+<h3>Broken Sidebar</h3>
+<p>The sidenav was conflicting with another implementation of a slightly different sidenav added on the dashboard and this would cause to not properly close when you intend to close it.<br><a href="https://github.com/SparkEdUAB/SparkEd/issues/71">Sidenav is broken · Issue #71 · SparkEdUAB/SparkEd</a>
+Due to the select I added on the home page, The sidenav which contains a lot of info like user info, dashboard link, ...</p>
+<h3>List of uncaught errors</h3>
+<p>These weren&#39;t really bugs but errors that were not caught and could end up crashin the whole app in one or another, we gathered a list and fixed them one by one.</p>
+<p><a href="https://github.com/SparkEdUAB/SparkEd/issues/41">List of uncaught errors · Issue #41 · SparkEdUAB/SparkEd</a>
+I will be updating this list as I find more errors that were uncaught during development and I will be fixing them…github.com
+Other issues closed and still can be <a href="https://github.com/SparkEdUAB/SparkEd/issues">found here</a></p>
+<p>Check the following articles for previous release notes to learn more on what&#39;s changed since version one.</p>
+<p><a href="https://sparkeduab.github.io/sparked-manual/blog/2019/01/17/v1.7.0-out.html">SparkEd v1.7.0 · SparkEd</a></p>
+<p><a href="https://sparkeduab.github.io/sparked-manual/blog/2019/02/12/v1.8.0-out.html">SparkEd v1.8.0 · SparkEd</a></p>
+<p><a href="https://sparkeduab.github.io/sparked-manual/blog/2019/03/21/docker-support.html">Docker Support</a></p>
+<p>You can also check the releases page for more insights on each release</p>
+<p><a href="https://github.com/SparkEdUAB/SparkEd/releases">https://github.com/SparkEdUAB/SparkEd/releases</a></p>
+<h2>Releases</h2>
+<p>SparkEd releases follow semantic versioning(<strong>semver</strong>) with that every release carries changes that lead up a major release.</p>
+<blockquote>
+<p>Major.Minor.Patch</p>
+</blockquote>
+<p>Consider version 1.8.2, The major version would be 1, the minor 8 and patch 2, patches are only counted as bug fixes that don&#39;t make any changes that affect the project then the minor releases follow an addition of some functionality the major release is when there is some big noticeable changes that users would need to know and mostly carries breaking changes.</p>
+<h2>Contributors</h2>
+<p>As an opensource project we are always open for contributions and we appreciate those who have contributed in the past.
+What&#39;s next
+We are planning to migrate the stack to something different but we will keep the RFC open so that it&#39;s indicated we need the change.</p>
+<p>V3 of SparkEd will be a complete re-write of the whole application, we will start and incrementally finish it all, the reason for this is to make sure we increase the test coverage, provide better performance a good user experience to the users.</p>
+
+       <br>
+       <hr>
+       <p>
+         Published on: Tue Apr 02 2019 by <cite><a href="https://github.com/olivierjm" target="_blank">Olivier JM</a></cite>
+       </p>
+    </div>
+  </main>
+</body>
+</html>
