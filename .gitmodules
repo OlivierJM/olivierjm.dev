@@ -1,0 +1,3 @@
+[submodule "nina"]
+	path = nina
+	url = https://github.com/OlivierJM/nina

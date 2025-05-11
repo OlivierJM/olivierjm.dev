@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title><%= it.title %> - <%= it.siteTitle %></title>
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css" />
+</head>
+
+<body>
+  <nav class="container">
+    <a href="<%= it.baseUrl %>"><strong><%= it.siteTitle %></strong></a>
+  </nav>
+
+  <main class="container">
+    <br />
+    <h1 class><%= it.title %></h1>
+    <p><%= it.description %></p>
+
+    <div class="grid">
+      <% it.posts.forEach(post => { %>
+      <article>
+        <h4><a href="<%= post.filename %>"><%= post.title %></a></h4>
+        <p><small><%= new Date(post.date).toLocaleDateString() %></small></p>
+      </article>
+      <% }) %>
+    </div>
+
+  </main>
+
+  <footer class="container">
+    <p>&copy;
+      <%= it.year %> - Nina
+    </p>
+  </footer>
+</body>
+
+</html>

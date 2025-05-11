@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title><%= it.title %> - <%= it.siteTitle %></title>
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css" />
+</head>
+
+<body>
+  <nav class="container">
+    <a href="<%= it.baseUrl %>"><strong><%= it.siteTitle %></strong></a>
+  </nav>
+
+  <main class="container">
+    <div>
+      <h1><%= it.title %></h1>
+      <p><small><%= it.date %></small></p>
+      <%~ it.backLink %>
+      <%~ it.content %>
+
+       <br>
+       <hr>
+       <p>
+         Published on: <%= it.date %> by <cite><a href="https://github.com/<%= it.username %>" target="_blank"><%= it.author %></a></cite>
+       </p>
+    </div>
+  </main>
+</body>
+</html>
